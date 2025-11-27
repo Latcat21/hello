@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Den · Preview</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1a1f;
+      --card: #13242c;
+      --accent: #ff7a1a;
+      --accent-2: #5bb8ff;
+      --text: #f7f4ed;
+      --muted: #c8d1d8;
+    }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 122, 26, 0.18), transparent 32%),
+        radial-gradient(circle at 82% 8%, rgba(100, 212, 140, 0.18), transparent 32%),
+        linear-gradient(160deg, #0f2028 0%, var(--bg) 45%, #0b161c 100%);
+      color: var(--text);
+      font-family: "Space Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+    }
+    .navbar-brand { font-weight: 700; letter-spacing: 0.03em; }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 18px;
+      color: var(--text);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+    .cta-btn {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border: none;
+      color: #0b0f1d;
+      font-weight: 700;
+    }
+    .cta-btn:hover { color: #0b0f1d; opacity: 0.9; }
+    .outline-btn { border-color: rgba(255, 255, 255, 0.4); color: var(--text); }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-transparent pt-3">
+    <div class="container">
+      <a class="navbar-brand" href="/">The Den</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/signup">Sign up</a></li>
+          <li class="nav-item"><a class="nav-link auth-link" href="/auth">Sign in</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="card h-100 p-4">
+            <h5 class="mb-3">Preview mode</h5>
+            <p class="text-secondary">This page shows a static mock of the chat room so you can see the layout before signing up.</p>
+            <div class="d-flex flex-wrap gap-2">
+              <a class="btn cta-btn flex-grow-1" href="/signup">Create account</a>
+              <a class="btn btn-outline-light outline-btn flex-grow-1" href="/">Back home</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card h-100 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="mb-1">Room feed (mock)</h5>
+                <p class="text-secondary small mb-0">Dummy messages to show how the live feed looks when you join.</p>
+              </div>
+              <span class="badge bg-success">Preview</span>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item bg-transparent d-flex flex-column flex-md-row justify-content-between align-items-start">
+                <div><strong class="text-white">alex</strong><div class="text-white-50 small">10:15 AM</div></div>
+                <div class="text-white ms-md-3 mt-2 mt-md-0 flex-grow-1">Set up the onboarding channel and pinned the welcome note.</div>
+              </li>
+              <li class="list-group-item bg-transparent d-flex flex-column flex-md-row justify-content-between align-items-start">
+                <div><strong class="text-white">mina</strong><div class="text-white-50 small">10:18 AM</div></div>
+                <div class="text-white ms-md-3 mt-2 mt-md-0 flex-grow-1">Shipping mobile notifications today—please test the beta build.</div>
+              </li>
+              <li class="list-group-item bg-transparent d-flex flex-column flex-md-row justify-content-between align-items-start">
+                <div><strong class="text-white">sam</strong><div class="text-white-50 small">10:22 AM</div></div>
+                <div class="text-white ms-md-3 mt-2 mt-md-0 flex-grow-1">Added read receipts to the desktop client; looking for feedback.</div>
+              </li>
+              <li class="list-group-item bg-transparent d-flex flex-column flex-md-row justify-content-between align-items-start">
+                <div><strong class="text-white">you</strong><div class="text-white-50 small">10:25 AM</div></div>
+                <div class="text-white ms-md-3 mt-2 mt-md-0 flex-grow-1">Ready to join? Sign up and post your first message in the real room.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

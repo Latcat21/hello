@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Den · Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c1a20;
+      --card: #132733;
+      --accent: #ff8a3d;
+      --accent-2: #5cb4ff;
+      --text: #f5f3ec;
+      --muted: #c5d2d9;
+    }
+    body {
+      margin: 0;
+      background: linear-gradient(160deg, #0f2028 0%, var(--bg) 45%, #0b161c 100%);
+      color: var(--text);
+      font-family: "Space Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+    }
+    .navbar-brand { font-weight: 700; letter-spacing: 0.03em; }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 18px;
+      color: var(--text);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+    .btn-danger { font-weight: 600; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-transparent pt-3">
+    <div class="container">
+      <a class="navbar-brand" href="/">The Den</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/chat">Chat room</a></li>
+          <li class="nav-item"><button class="btn btn-outline-light outline-btn ms-2" id="sign-out-btn" type="button">Sign out</button></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="py-5">
+    <div class="container">
+      <div class="card p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <div class="text-secondary small">Admin</div>
+            <h4 class="mb-0 text-white">User management</h4>
+          </div>
+          <span class="badge bg-danger">Restricted</span>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-dark table-striped align-middle" id="users-table">
+            <thead>
+              <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Note</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="3" class="text-secondary">Loading users...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="small text-secondary" id="admin-status"></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const tableBody = document.querySelector("#users-table tbody");
+    const statusEl = document.getElementById("admin-status");
+    const signOutBtn = document.getElementById("sign-out-btn");
+    let currentAdmin = null;
+
+    const setStatus = (msg, isError = false) => {
+      statusEl.textContent = msg || "";
+      statusEl.classList.toggle("text-danger", isError);
+      statusEl.classList.toggle("text-secondary", !isError);
+    };
+
+    const fetchUsers = async () => {
+      setStatus("Loading users...");
+      try {
+        const meRes = await fetch("/api/me");
+        const meData = await meRes.json();
+        currentAdmin = meData?.user?.username || null;
+        const res = await fetch("/api/admin/users");
+        if (!res.ok) throw new Error("Not authorized");
+        const data = await res.json();
+        renderUsers(data.users || []);
+        setStatus("Users loaded.");
+      } catch (err) {
+        setStatus(err.message || "Failed to load users.", true);
+        tableBody.innerHTML = '<tr><td colspan="3" class="text-danger">Unauthorized or error.</td></tr>';
+      }
+    };
+
+    const deleteUser = async (username) => {
+      if (!confirm(`Delete user ${username}? This removes their messages.`)) return;
+      setStatus(`Deleting ${username}...`);
+      try {
+        const res = await fetch("/api/admin/users/delete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Delete failed");
+        setStatus(`Deleted ${username}.`);
+        fetchUsers();
+      } catch (err) {
+        setStatus(err.message || "Delete failed.", true);
+      }
+    };
+
+    const renderUsers = (users) => {
+      if (!users.length) {
+        tableBody.innerHTML = '<tr><td colspan="3" class="text-secondary">No users yet.</td></tr>';
+        return;
+      }
+      tableBody.innerHTML = "";
+      users.forEach((u) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${u.username}</td>
+          <td class="small text-secondary">${u.note || ""}</td>
+          <td>
+            <button class="btn btn-sm btn-danger" ${u.is_admin ? "disabled" : ""}>Delete</button>
+          </td>
+        `;
+        const btn = tr.querySelector("button");
+        if (u.is_admin || u.username === currentAdmin) {
+          btn.disabled = true;
+          btn.title = "Admins cannot be deleted.";
+        } else {
+          btn.addEventListener("click", () => deleteUser(u.username));
+        }
+        tableBody.appendChild(tr);
+      });
+    };
+
+    if (signOutBtn) {
+      signOutBtn.addEventListener("click", async () => {
+        await fetch("/api/logout", { method: "POST" });
+        window.location.href = "/";
+      });
+    }
+
+    fetchUsers();
+  </script>
+</body>
+</html>

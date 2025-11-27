@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Den · Sign up</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c1a20;
+      --card: #132733;
+      --accent: #ff8a3d;
+      --accent-2: #5cb4ff;
+      --text: #f5f3ec;
+      --muted: #c5d2d9;
+    }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 138, 61, 0.16), transparent 32%),
+        radial-gradient(circle at 82% 8%, rgba(99, 208, 154, 0.18), transparent 32%),
+        linear-gradient(160deg, #0f2028 0%, var(--bg) 45%, #0b161c 100%);
+      color: var(--text);
+      font-family: "Space Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 18px;
+      color: var(--text);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+    .cta-btn {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border: none;
+      color: #0b0f1d;
+      font-weight: 700;
+    }
+    .cta-btn:hover { color: #0b0f1d; opacity: 0.9; }
+    .outline-btn { border-color: rgba(255, 255, 255, 0.4); color: var(--text); }
+    .form-control {
+      background: #0f2747;
+      border-color: rgba(255, 255, 255, 0.18);
+      color: var(--text);
+    }
+    .form-control:focus {
+      background: #0f2747;
+      color: var(--text);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 0.2rem rgba(107, 184, 255, 0.25);
+    }
+    .link {
+      color: var(--accent-2);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body data-page="signup">
+  <div class="card p-4" style="max-width: 480px; width: 100%;">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <div class="text-secondary small">The Den</div>
+        <h4 class="mb-0 text-white">Create your account</h4>
+      </div>
+      <a class="link small" href="/">Back to home</a>
+    </div>
+    <form id="auth-form" novalidate>
+      <div class="mb-3">
+        <label for="auth-name" class="form-label">Email</label>
+        <input type="email" class="form-control" id="auth-name" placeholder="you@example.com" autocomplete="username" required>
+      </div>
+      <div class="mb-3">
+        <label for="auth-pass" class="form-label">Password</label>
+        <input type="password" class="form-control" id="auth-pass" placeholder="••••••••" autocomplete="new-password" required>
+        <div class="form-text text-secondary">At least 8 characters with a number. We hash passwords and keep data in SQLite for this demo.</div>
+      </div>
+      <div class="mb-3">
+        <label for="auth-pass-confirm" class="form-label">Confirm password</label>
+        <input type="password" class="form-control" id="auth-pass-confirm" placeholder="••••••••" autocomplete="new-password" required>
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+        <button type="button" class="btn cta-btn flex-grow-1" data-action="signup">Create account</button>
+        <a class="btn btn-outline-light outline-btn flex-grow-1 text-center" href="/auth">Have an account? Sign in</a>
+      </div>
+    </form>
+    <div class="small text-secondary mt-3" id="auth-status">Create your login to continue.</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Den · Room</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c1a20;
+      --card: #132733;
+      --accent: #ff8a3d;
+      --accent-2: #5cb4ff;
+      --text: #f5f3ec;
+      --muted: #c5d2d9;
+    }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 138, 61, 0.16), transparent 32%),
+        radial-gradient(circle at 82% 8%, rgba(99, 208, 154, 0.18), transparent 32%),
+        linear-gradient(160deg, #0f2028 0%, var(--bg) 45%, #0b161c 100%);
+      color: var(--text);
+      font-family: "Space Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+    }
+    .navbar-brand { font-weight: 700; letter-spacing: 0.03em; }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 18px;
+      color: var(--text);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+    .cta-btn {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border: none;
+      color: #0b0f1d;
+      font-weight: 700;
+    }
+    .cta-btn:hover { color: #0b0f1d; opacity: 0.9; }
+    .outline-btn { border-color: rgba(255, 255, 255, 0.4); color: var(--text); }
+    .form-control {
+      background: #0f2747;
+      border-color: rgba(255, 255, 255, 0.18);
+      color: var(--text);
+    }
+    .form-control:focus {
+      background: #0f2747;
+      color: var(--text);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 0.2rem rgba(107, 184, 255, 0.25);
+    }
+    .badge-soft {
+      background: rgba(61, 220, 151, 0.14);
+      color: var(--accent);
+      border: 1px solid rgba(61, 220, 151, 0.35);
+    }
+    .badge-soft-dark {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+  </style>
+</head>
+<body data-page="chat">
+  <nav class="navbar navbar-expand-md navbar-dark bg-transparent pt-3">
+    <div class="container">
+      <a class="navbar-brand" href="/">The Den</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/signup">Sign up</a></li>
+          <li class="nav-item"><a class="nav-link" href="/account">Account</a></li>
+          <li class="nav-item"><a class="nav-link admin-link d-none" href="/admin">Admin</a></li>
+          <li class="nav-item"><a class="nav-link auth-link" href="/auth">Sign in</a></li>
+          <li class="nav-item"><button class="btn btn-outline-light outline-btn ms-2" id="sign-out-btn" type="button">Sign out</button></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="card h-100 p-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h5 class="mb-0">Room info</h5>
+              <span class="badge badge-soft-dark rounded-pill" id="auth-badge">Guest</span>
+            </div>
+            <p class="text-secondary small mb-3">Sign in (via the auth page) to post. Messages show up for everyone in this demo room.</p>
+            <div class="d-flex flex-wrap gap-2">
+              <a class="btn cta-btn flex-grow-1 auth-link" href="/auth">Open auth</a>
+              <a class="btn btn-outline-light outline-btn flex-grow-1" href="/">Back home</a>
+            </div>
+            <div class="small text-secondary mt-3" id="auth-status">No one is signed in.</div>
+          </div>
+          <div class="card h-100 p-4 mt-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h6 class="mb-0 text-white">Manage account</h6>
+              <span class="badge badge-soft">Account</span>
+            </div>
+            <p class="text-secondary small mb-3">Go to account to update credentials, or clear your messages from this room.</p>
+            <div class="d-flex flex-wrap gap-2">
+              <a class="btn btn-outline-light outline-btn flex-grow-1" href="/account">Account</a>
+              <button class="btn btn-danger flex-grow-1" id="delete-messages-btn" type="button" disabled>Delete my messages</button>
+            </div>
+            <div class="small text-secondary mt-2" id="delete-status"></div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card h-100 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="mb-1">Chat message</h5>
+                <p class="text-secondary small mb-0">Drop a line and watch it appear in the feed. Paste a YouTube link to show a preview.</p>
+              </div>
+              <span class="badge badge-soft rounded-pill" id="note-owner">Guest</span>
+            </div>
+            <form id="note-form" class="d-flex flex-column h-100">
+              <div class="mb-3 flex-grow-1">
+                <label for="note-input" class="form-label">Message</label>
+                <textarea class="form-control" id="note-input" rows="5" placeholder="Say hello to the room... (YouTube links will show a preview)" required disabled></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="image-file" class="form-label">Upload image (optional)</label>
+                <input type="file" class="form-control" id="image-file" accept="image/*" capture="environment" disabled>
+                <div class="form-text text-secondary">Upload from your device or take a photo on mobile; we’ll show a preview in the feed.</div>
+              </div>
+              <div class="mb-3">
+                <label for="link-url" class="form-label">Link (optional)</label>
+                <input type="url" class="form-control" id="link-url" placeholder="https://example.com" disabled>
+                <div class="form-text text-secondary">Paste any URL for a quick link preview.</div>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <small class="text-secondary">Only signed-in users can save.</small>
+                <button type="submit" class="btn btn-outline-light outline-btn" id="save-note-btn" disabled>Send</button>
+              </div>
+            </form>
+            <div class="alert alert-success mt-3 d-none py-2 px-3" role="alert" id="note-alert">Saved!</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="card p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="mb-0">Room feed</h5>
+              <small class="text-secondary">Everyone’s latest message.</small>
+            </div>
+            <ul class="list-group list-group-flush" id="note-feed">
+              <li class="list-group-item bg-transparent text-white-50">No messages yet.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="app.js"></script>
+</body>
+</html>

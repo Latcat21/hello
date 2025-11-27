@@ -3,238 +3,257 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Git Practice Landing</title>
+  <title>The Den · Fast, clear conversations</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0b132b;
-      --accent: #22c1c3;
-      --accent-2: #a0e426;
-      --card: #0f1b3d;
-      --text: #e5e7ef;
-      --muted: #9aa3c3;
+      --bg: #0c1a20;
+      --card: #132733;
+      --accent: #ff8a3d;
+      --accent-2: #5cb4ff;
+      --text: #f5f3ec;
+      --muted: #c5d2d9;
     }
+    * { box-sizing: border-box; }
     body {
-      background: radial-gradient(circle at 20% 20%, rgba(34, 193, 195, 0.15), transparent 30%),
-                  radial-gradient(circle at 80% 0%, rgba(160, 228, 38, 0.15), transparent 25%),
-                  var(--bg);
+      margin: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 138, 61, 0.16), transparent 32%),
+        radial-gradient(circle at 82% 8%, rgba(99, 208, 154, 0.18), transparent 32%),
+        linear-gradient(160deg, #0f2028 0%, var(--bg) 45%, #0b161c 100%);
       color: var(--text);
-      font-family: "Helvetica Neue", "Segoe UI", system-ui, -apple-system, sans-serif;
+      font-family: "Space Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
     }
-    .navbar-brand {
-      letter-spacing: 0.03em;
-      font-weight: 700;
+    a { color: inherit; text-decoration: none; }
+    .navbar-brand { font-weight: 700; letter-spacing: 0.03em; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.9rem;
     }
     .hero {
-      padding: 5rem 0 4rem;
+      padding: 5rem 0 3rem;
     }
     .hero-title {
-      font-size: clamp(2.5rem, 5vw, 3.5rem);
-      line-height: 1.1;
+      font-size: clamp(2.6rem, 5vw, 3.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
     }
-    .hero p {
-      color: var(--muted);
+    .hero p { color: var(--muted); }
+    .glass {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      border-radius: 20px;
     }
     .card {
       background: var(--card);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-    }
-    .badge-soft {
-      background: rgba(34, 193, 195, 0.15);
-      color: var(--accent);
-      border: 1px solid rgba(34, 193, 195, 0.4);
-    }
-    .step-number {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #0b132b;
-      font-weight: 700;
-      box-shadow: 0 10px 30px rgba(34, 193, 195, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 18px;
+      color: var(--text);
     }
     .cta-btn {
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
       border: none;
-      color: #0b132b;
+      color: #0b0f1d;
       font-weight: 700;
-      box-shadow: 0 10px 30px rgba(34, 193, 195, 0.35);
+      box-shadow: 0 10px 35px rgba(255, 138, 0, 0.25);
     }
-    .cta-btn:hover {
-      color: #0b132b;
-      opacity: 0.9;
+    .cta-btn:hover { color: #0b0f1d; opacity: 0.9; }
+    .outline-btn { border-color: rgba(255, 255, 255, 0.4); color: var(--text); }
+    .section-title { letter-spacing: -0.01em; }
+    .feature-icon {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      background: rgba(77, 180, 255, 0.18);
+      display: inline-flex; align-items: center; justify-content: center;
     }
-    footer {
-      color: var(--muted);
+    .card .form-control {
+      background: #0f2747;
+      border-color: rgba(255, 255, 255, 0.12);
+      color: var(--text);
     }
+    .card .form-control:focus {
+      background: #0f2747;
+      color: var(--text);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 0.2rem rgba(107, 184, 255, 0.25);
+    }
+    .badge-soft {
+      background: rgba(61, 220, 151, 0.14);
+      color: var(--accent);
+      border: 1px solid rgba(61, 220, 151, 0.35);
+    }
+    .badge-soft-dark {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    footer { color: var(--muted); }
   </style>
 </head>
-<body>
+<body data-page="main">
   <nav class="navbar navbar-expand-md navbar-dark bg-transparent pt-3">
     <div class="container">
-      <a class="navbar-brand" href="#">Git Launchpad</a>
+      <a class="navbar-brand" href="#">The Den</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="/preview">Preview</a></li>
+          <li class="nav-item"><a class="nav-link" href="/chat">Chat room</a></li>
+          <li class="nav-item"><a class="nav-link" href="/account">Account</a></li>
+          <li class="nav-item"><a class="nav-link admin-link d-none" href="/admin">Admin</a></li>
+          <li class="nav-item"><a class="nav-link" href="/signup">Sign up</a></li>
+          <li class="nav-item"><a class="nav-link auth-link" href="/auth">Sign in</a></li>
           <li class="nav-item">
-            <a class="nav-link active" href="#learn">Learn</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#steps">Steps</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#faq">FAQ</a>
+            <button class="btn btn-outline-light outline-btn ms-md-2 d-none" id="sign-out-btn" type="button">Sign out</button>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <section class="hero">
+  <section id="home" class="hero">
     <div class="container">
-      <div class="row align-items-center g-4">
+      <div class="row g-4 align-items-center">
         <div class="col-lg-6">
-          <span class="badge badge-soft rounded-pill px-3 py-2 mb-3">New to Git</span>
-          <h1 class="hero-title mb-3">Launch your Git skills with a simple, focused guide.</h1>
-          <p class="mb-4">Learn the basics of Git and GitHub with a concise roadmap, practical commands, and hands-on steps you can finish today.</p>
+          <span class="pill mb-3">
+            <span class="badge bg-success rounded-pill">Live</span>
+            Built for instant, secure chat
+          </span>
+          <h1 class="hero-title mb-3">Small-group chat that clears twice a day.</h1>
+          <p class="mb-4">The Den is for up to 10 people with a simple promise: post between 9am–9pm (Chicago time), then everything wipes at 9pm so you start fresh the next morning. Share updates, links, and photos without inbox baggage.</p>
           <div class="d-flex flex-wrap gap-3">
-            <a class="btn cta-btn btn-lg px-4" href="#steps">Start practicing</a>
-            <a class="btn btn-outline-light btn-lg px-4" href="#learn">See what's inside</a>
+            <a class="btn btn-outline-light btn-lg px-4 outline-btn" href="#features">See why it works</a>
+          </div>
+          <div class="d-flex gap-4 mt-4 text-secondary">
+            <div><strong class="text-white">9am–9pm</strong><div class="small">Post window (Chicago)</div></div>
+            <div><strong class="text-white">9pm reset</strong><div class="small">Auto-clear every night</div></div>
+            <div><strong class="text-white">Up to 10</strong><div class="small">Keep it intimate</div></div>
           </div>
         </div>
         <div class="col-lg-6">
-          <div class="card p-4 h-100">
-            <div class="card-body">
-              <h5 class="card-title mb-3">Quick Git cheatsheet</h5>
-              <div class="d-flex flex-column gap-3 small">
-                <div>
-                  <code class="text-success">git init</code>
-                  <div class="text-secondary">Start tracking a project</div>
-                </div>
-                <div>
-                  <code class="text-success">git status</code>
-                  <div class="text-secondary">See what changed</div>
-                </div>
-                <div>
-                  <code class="text-success">git add .</code>
-                  <div class="text-secondary">Stage your work</div>
-                </div>
-                <div>
-                  <code class="text-success">git commit -m "message"</code>
-                  <div class="text-secondary">Save a snapshot</div>
-                </div>
-                <div>
-                  <code class="text-success">git push origin main</code>
-                  <div class="text-secondary">Share it on GitHub</div>
-                </div>
+          <div class="glass p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <div class="text-secondary small">Live chat</div>
+                <h5 class="mb-0 text-white">See The Den in action</h5>
+              </div>
+              <span class="badge badge-soft rounded-pill">Try it</span>
+            </div>
+            <p class="text-secondary mb-4">Jump into the chat room, sign in, drop a message, and watch it appear in the shared feed. Posting is open 9am–9pm CT; the room clears at 9pm nightly.</p>
+            <div class="d-flex gap-2">
+              <a class="btn btn-outline-light outline-btn flex-grow-1" href="/auth">Manage account</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="py-5">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-lg-8">
+          <p class="pill mb-3">Features</p>
+          <h2 class="section-title mb-2">Built for tiny teams, tuned for reliability</h2>
+          <p class="text-secondary mb-0">Up to 10 people, 12-hour windows, zero backlog. The Den keeps conversations crisp and predictable, then clears the slate at 9pm CT every night.</p>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="card h-100 p-4">
+            <div class="feature-icon mb-3">⚡</div>
+            <h5 class="mb-2">Realtime delivery</h5>
+            <p class="text-secondary mb-0">Fast transport and graceful fallbacks keep your 9am–9pm discussions flowing smoothly.</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card h-100 p-4">
+            <div class="feature-icon mb-3">🧭</div>
+            <h5 class="mb-2">Signal over noise</h5>
+            <p class="text-secondary mb-0">Small groups, threads, and reactions keep every check-in clear and focused.</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card h-100 p-4">
+            <div class="feature-icon mb-3">🔒</div>
+            <h5 class="mb-2">Trust by default</h5>
+            <p class="text-secondary mb-0">Session-protected auth, hashed passwords, and scoped data—plus nightly wipes—for peace of mind.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row g-4 align-items-center mt-4">
+        <div class="col-lg-5">
+          <div class="pill mb-3">Reliability</div>
+          <h3 class="mb-2">Resilient by design</h3>
+          <p class="text-secondary mb-4">The Den keeps your conversations alive during the 9am–9pm window with smart retries, presence awareness, and prioritized delivery.</p>
+          <ul class="text-secondary small mb-0">
+            <li class="mb-2">Adaptive backoff and reconnect when the network drops.</li>
+            <li class="mb-2">Presence signals that stay accurate and fast.</li>
+            <li>Simple flows to share text, links, YouTube previews, and images.</li>
+          </ul>
+        </div>
+        <div class="col-lg-7">
+          <div class="card p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="mb-0">Fostering conversations</h5>
+              <span class="badge badge-soft-dark rounded-pill">How we help</span>
+            </div>
+            <div class="row text-secondary">
+              <div class="col-md-4 mb-3">
+                <div class="text-white h4 mb-1">Fast</div>
+                <div class="small">Low-latency delivery keeps threads flowing.</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-white h4 mb-1">Focused</div>
+                <div class="small">Threaded replies and reactions reduce noise.</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-white h4 mb-1">Safe</div>
+                <div class="small">Session-protected auth and nightly wipes.</div>
               </div>
             </div>
+            <div class="small text-secondary">We keep the room tidy: messages auto-clear at 9am and 9pm daily. Talk freely with your 10-person crew, knowing conversations reset every 12 hours.</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="learn" class="py-5">
+  <section id="flash" class="py-5">
     <div class="container">
-      <div class="row g-4">
-        <div class="col-lg-4">
-          <div class="card h-100 p-4">
-            <div class="d-flex align-items-center mb-3">
-              <div class="step-number me-3">1</div>
-              <h5 class="mb-0">Understand Git</h5>
-            </div>
-            <p class="text-secondary mb-0">Get a feel for snapshots, branches, and remotes. Think of Git as a time machine for your code.</p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card h-100 p-4">
-            <div class="d-flex align-items-center mb-3">
-              <div class="step-number me-3">2</div>
-              <h5 class="mb-0">Practice locally</h5>
-            </div>
-            <p class="text-secondary mb-0">Clone a repo, make a small change, commit it, and inspect the history until it feels comfortable.</p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card h-100 p-4">
-            <div class="d-flex align-items-center mb-3">
-              <div class="step-number me-3">3</div>
-              <h5 class="mb-0">Ship to GitHub</h5>
-            </div>
-            <p class="text-secondary mb-0">Create a repo, set the remote, and push. Open a pull request to review your own changes.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="steps" class="py-5">
-    <div class="container">
-      <div class="row align-items-center g-4">
+      <div class="row g-4 align-items-center justify-content-center">
         <div class="col-lg-6">
-          <h2 class="mb-3">Five minute starter path</h2>
-          <p class="text-secondary mb-4">Follow these moves in a fresh folder. When you are done, you will have your first commit pushed.</p>
-          <div class="card p-4">
-            <ol class="mb-0 small text-secondary">
-              <li class="mb-3"><strong>Initialize:</strong> run <code>git init</code> and add a README.</li>
-              <li class="mb-3"><strong>Stage & commit:</strong> <code>git add .</code> then <code>git commit -m "first commit"</code>.</li>
-              <li class="mb-3"><strong>Create remote:</strong> make a repo on GitHub and copy its URL.</li>
-              <li class="mb-3"><strong>Connect:</strong> <code>git remote add origin &lt;url&gt;</code>.</li>
-              <li><strong>Push:</strong> <code>git branch -M main</code> then <code>git push -u origin main</code>.</li>
-            </ol>
+          <div class="card p-4 h-100">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+          <h5 class="mb-0">Chat room preview</h5>
+          <span class="badge badge-soft rounded-pill">See it</span>
+        </div>
+            <p class="text-secondary mb-4">Open a static preview of the room with dummy messages. From there you can jump home or sign up.</p>
+            <a class="btn btn-outline-light outline-btn w-100" href="/preview">Open preview page</a>
           </div>
         </div>
-        <div class="col-lg-6">
-          <div class="card h-100 p-4">
-            <h5 class="mb-3">Tips as you go</h5>
-            <ul class="text-secondary small mb-0">
-              <li>Commit often; keep messages short and clear.</li>
-              <li>Use <code>git status</code> whenever you're unsure.</li>
-              <li>Practice branching: <code>git checkout -b feature/idea</code>.</li>
-              <li>Break things safely with <code>git switch</code> and <code>git stash</code>.</li>
-              <li>Read history with <code>git log --oneline --graph</code>.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq" class="py-5">
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-lg-6">
-          <div class="card h-100 p-4">
-            <h5 class="mb-3">FAQ</h5>
-            <div class="text-secondary small">
-              <p class="mb-2"><strong>What do I install?</strong> Git CLI and a GitHub account. Optional: VS Code + GitLens.</p>
-              <p class="mb-2"><strong>How do I undo?</strong> Use <code>git restore</code> for files, <code>git revert</code> for commits, and <code>git reset --soft</code> when you need to redo staging.</p>
-              <p class="mb-0"><strong>What next?</strong> Try a branch-only workflow: open a PR, request a review, and merge via GitHub.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="card h-100 p-4">
-            <h5 class="mb-3">Ready to get hands-on?</h5>
-            <p class="text-secondary">Use this landing page as your practice repo. Make tweaks, commit, push, and track the history as you learn.</p>
-            <a class="btn cta-btn px-4" href="#steps">Start now</a>
-          </div>
-        </div>
+       
       </div>
     </div>
   </section>
 
   <footer class="py-4 border-top border-secondary-subtle">
     <div class="container d-flex flex-wrap justify-content-between align-items-center">
-      <span class="small">Built for learning Git.</span>
-      <span class="small text-secondary">Keep committing, keep shipping.</span>
+      <span class="small">The Den · Built for focused conversations.</span>
+      <span class="small text-secondary">Ship quickly. Talk clearly.</span>
     </div>
   </footer>
 
